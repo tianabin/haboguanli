@@ -81,6 +81,11 @@ export default {
 	this.erp_user_id = window.localStorage.getItem("erp_user_id");
 	this.id=this.$route.query.id;
   },
+  mounted(){
+  	mui.back = function() {
+  		window.history.go(-1);
+  	}
+  },
   methods:{
 	commanderSignIn(){
 		let $v=this,

@@ -12,6 +12,8 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 Vue.use(MintUI)
 
+import Mui from 'vue-awesome-mui';
+Vue.use(Mui);
 Vue.config.productionTip = false;
 
 new Vue({

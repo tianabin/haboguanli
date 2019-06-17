@@ -106,7 +106,9 @@
 	        Header:Header
 	  },
 	  mounted(){
-		  
+		mui.back = function() {
+			window.history.go(-1);
+		}
 	  },
 	  methods:{
 		  getData:function()		  			  //获取群信息(名称及消息数)  

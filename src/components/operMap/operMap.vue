@@ -115,7 +115,9 @@
 		    this.initMap()
 			
 		})
-		
+		mui.back = function() {
+			window.history.go(-1);
+		}
 	},
     methods: {
       // 搜索

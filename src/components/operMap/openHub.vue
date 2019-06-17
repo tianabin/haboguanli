@@ -38,6 +38,11 @@ export default {
 	this.erp_user_id = window.localStorage.getItem("erp_user_id");
 	this.whbUserList()
   },
+    mounted(){
+  	mui.back = function() {
+  		window.history.go(-1);
+  	}
+  },
   methods:{
   	getCommanderBind(){
 		let $v=this,

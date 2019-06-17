@@ -41,6 +41,21 @@
 		}
 		this.getWxConfig()
 	  },
+	  mounted(){
+	  	var clickNum = 0;
+	  	mui.back = function(event) {
+	  	  clickNum++;
+	  	  if(clickNum > 1) {
+	  		plus.runtime.quit();
+	  	  } else {
+	  		mui.toast("再按一次退出应用");
+	  	  }
+	  	  setTimeout(function() {
+	  		clickNum = 0
+	  	  }, 2000);
+	  	  return false;
+	  	} 
+	  },
 	  methods:{
 		  addSubmit(){
 			if(this.checked){

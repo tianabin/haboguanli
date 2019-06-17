@@ -51,6 +51,11 @@
 			   })
 			 
 		},
+	  mounted(){
+		mui.back = function() {
+			window.history.go(-1);
+		}
+	},
 		methods:{
 			submit(){
 				let _this=this;

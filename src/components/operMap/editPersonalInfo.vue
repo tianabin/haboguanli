@@ -60,6 +60,11 @@
 			this.getConfig()
 			this.getCommanderInfo()
 		},
+		  mounted(){
+			mui.back = function() {
+				window.history.go(-1);
+			}
+		},
 		methods:{
 			showPicker(){
 				this.popupVisible=true

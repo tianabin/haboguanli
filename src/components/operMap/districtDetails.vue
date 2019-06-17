@@ -142,6 +142,11 @@
 			this.getVilGrouper()
 			loadMapApi()
 		},
+	  mounted(){
+		mui.back = function() {
+			window.history.go(-1);
+		}
+	},
 		methods:{
 			getMapVillage(vid){
 				let $v=this,

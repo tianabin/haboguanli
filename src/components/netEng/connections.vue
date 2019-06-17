@@ -64,6 +64,11 @@ export default {
   	this.get_customer_tags();
   	this.get_customer_group();
   },
+  mounted(){
+	mui.back = function() {
+		window.history.go(-1);
+	}
+  },
   methods: {
   	get_customer_info: function() { //获取团长信息 openid和热度值上一页面传过来
 		let $v=this,

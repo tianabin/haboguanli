@@ -41,6 +41,11 @@
 			document.title = '工作计划'
 			this.getLinePlanList()
 		},
+		mounted(){
+			mui.back = function() {
+				window.history.go(-1);
+			}
+		},
 		methods:{
 			navClcik(index){
 			  this.navIndex=index;

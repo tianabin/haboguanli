@@ -77,6 +77,11 @@
 			document.title = '工作记录'
 			this.getCommanderSignlist()
 		},
+		mounted(){
+			mui.back = function() {
+				window.history.go(-1);
+			}
+		},
 		methods:{
 			navClcik(index){   //一级导航
 			  this.navIndex=index;

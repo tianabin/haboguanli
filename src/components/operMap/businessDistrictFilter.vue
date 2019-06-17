@@ -37,6 +37,11 @@
 			this.sHeight=document.documentElement.clientHeight
 			this.getAreaCircleData(this.city,'')
 		},
+	  mounted(){
+		mui.back = function() {
+			window.history.go(-1);
+		}
+	},
 		methods:{
 			navClick(index,s){
 				Indicator.open({

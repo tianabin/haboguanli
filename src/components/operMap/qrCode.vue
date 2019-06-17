@@ -27,6 +27,9 @@ export default {
   mounted(){
 	let $v=this;
 	$v.timer=setInterval($v.getCommanderInfo,3000)  
+	mui.back = function() {
+		window.history.go(-1);
+	}
   },
   beforeDestroy() {
     clearInterval(this.timer);

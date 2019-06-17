@@ -95,6 +95,11 @@ export default {
 	this.userid = window.localStorage.getItem("userMapId");
 	this.getCollection()
   },
+  mounted(){
+	mui.back = function() {
+		window.history.go(-1);
+	}
+  },
   methods:{
   	navClcik(index){   //一级导航
   	  this.navIndex=index;

@@ -73,6 +73,11 @@ export default {
   	this.getGroupMembers()
   	this.getGroupInfo()
   },
+  mounted(){
+	mui.back = function() {
+		window.history.go(-1);
+	}
+  },
  methods:{
  	getGroupStat:function(){
 		let $v=this,

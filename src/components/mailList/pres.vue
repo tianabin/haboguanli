@@ -61,6 +61,11 @@ export default {
 	this.getGrouperParse()
 	this.getPreGorList()
   },
+  mounted(){
+	mui.back = function() {
+		window.history.go(-1);
+	}
+  },
   methods:{
   	getGrouperParse(){
 		this.wxid=this.$route.query.wxid

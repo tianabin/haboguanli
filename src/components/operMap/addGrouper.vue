@@ -77,6 +77,11 @@ export default {
     link.href = 'https://cache.amap.com/lbs/static/main1119.css'
     document.head.appendChild(link)
   },
+  mounted(){
+	mui.back = function() {
+		window.history.go(-1);
+	}
+  },
   methods:{
   	initMap(){
 		let $v=this;

@@ -10,7 +10,7 @@
 		<!-- <script type="text/javascript" src="../src/utils/remogeo.js"></script> -->
 		<script>
 			(function(win, doc) {function change() {doc.documentElement.style.fontSize = doc.documentElement.clientWidth / 16 + 'px'}change();win.addEventListener('resize', change, false)})(window, document)
-			 
+			 // mui.init({keyEventBind: {backbutton: true}})var first = null;mui.back = function(){if(!first){first = new Date().getTime();mui.toast("再按一次退出应用");history.go(-1);setTimeout(function(){first = null;}, 1000);}else{if(new Date().getTime() - first < 1000){plus.runtime.quit(); }}}
 		</script>
 		<script src="https://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
 		<!--<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>-->

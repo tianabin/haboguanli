@@ -42,6 +42,11 @@
 			document.title = '团长信息'
 			this.getCommanderList()
 		},
+		  mounted(){
+			mui.back = function() {
+				window.history.go(-1);
+			}
+		},
 		methods:{
 			toDetails(id){
 //				this.$router.push({path:'./personalinfo',query:{id:id}});

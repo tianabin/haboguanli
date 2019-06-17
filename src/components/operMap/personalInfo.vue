@@ -28,9 +28,10 @@
 			<div class="info_div"><div>店名</div><div>{{data.store_name}}</div></div>
 			<div class="info_div" style="margin-bottom: 0.340425rem;"><div>详细地址</div><div>{{data.address}}</div></div>
 			<div class="info_div"><div>拜访记录</div><div><img src="../../assets/jiao.png"/></div></div>
-			<div class="info_div" @click="toxiaoqu"><div>周边信息</div><div><img src="../../assets/jiao.png"/></div></div>
+			<div class="info_div" ><div>周边信息</div><div><img src="../../assets/jiao.png"/></div></div>
 			<div class="info_div" @click="toconnectid" style="margin-bottom: 0.340425rem;"><div>人脉分析</div><div><img src="../../assets/jiao.png"/></div></div>
 			<div class="info_div" @click="toxiaoqu"><div style="width: 50%;">团长联盟成员信息采集</div><div><img src="../../assets/jiao.png"/></div></div>
+			<div class="info_div" @click="supinfo"><div style="width: 50%;">补充信息</div><div><img src="../../assets/jiao.png"/></div></div>
 			<div class="door_photo">
 				<div class="door_photo_test">门头照</div>
 				<div class="door_photo_img">
@@ -61,6 +62,11 @@
 			document.title = '团长信息'
 			this.getCommanderInfo()
 		},
+		  mounted(){
+			mui.back = function() {
+				window.history.go(-1);
+			}
+		},
 		methods:{
 			toEditInfo(){  
 				this.$router.push({path:'./editpersonalinfo',query:{id:this.id}});
@@ -68,6 +74,10 @@
 			toxiaoqu(){
 				// this.$router.push({path:'./districtdetails',query:{id:i,address:this.formattedAddress}});
 				window.location.href='https://btj.yundian168.com/addinfo.php?id='+this.id+'&uid='+this.user_id
+			},
+			supinfo(){
+				console.log(this.data)
+				window.location.href='https://btj.yundian168.com/supplement.php?tel='+this.data.telphone
 			},
 			toconnectid(){
 				if(this.data.wxid=='' || this.data.wxid==null){

@@ -40,6 +40,11 @@
 			this.getCityList()
 			 
 		},
+		mounted(){
+			mui.back = function() {
+				window.history.go(-1);
+			}
+		},
 		methods:{
 			locationCityClick(){  //当前定位城市点击事件
 				let _this=this;
