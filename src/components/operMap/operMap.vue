@@ -371,7 +371,7 @@
 			markers.push(mark1)
 		})
 		map.add(markers)
-		// map.setFitView(markers);
+		map.setFitView(markers);
 	  },
 	  wiring(){
 		let $v=this;
@@ -534,8 +534,8 @@
 	.scarchIcon{width: 0.64rem;height: 0.64rem;background: url(../../assets/scarch.png) no-repeat;background-size: 100% 100%;position: absolute;top: 0.66rem;left: 1rem;}
 	.secBtn{width:3.413333rem;height:1.493333rem;background:rgba(255,255,255,1);box-shadow:0px 0.042666rem 0.085333rem 0px rgba(54,153,255,0.2);border-radius:0.746666rem;color: #3699FF;font-size: 0.597333rem;text-align: center;line-height: 1.493333rem;position: absolute;right: 0.4rem;top: 0.2rem;}
 	.btnList{position: absolute;top: 4rem;font-size: 0.597333rem;z-index: 1;color: #3699FF;padding: 0 0.512rem;}
-	.num{background-color: blue;}
-	.btnList-screen{width: 100%;height: 1.877333rem;line-height: 1.877333rem;position: absolute;top: 1.877333rem;z-index: 1;display: flex;justify-content: space-around;}
+	.num{background-color: blue; color: #fff;}
+	.btnList-screen{width: 100%;height: 1.877333rem;font-size: 0.8rem;line-height: 1.877333rem;position: absolute;top: 1.877333rem;z-index: 1;display: flex;justify-content: space-around;}
 	.btnList-screen-platform{width: 40%;height: 1.877333rem;color: #3699FF;text-align: center;background-color: #fff}
 	.btnList-screen-customer{width: 40%;height: 1.877333rem;color: #3699FF;text-align: center;background-color: blue}
 	.btnList-screen-platform-list{background-color: #fff;height: 1.277333rem;line-height:  1.277333rem;font-size: 0.597333rem;border-bottom: 0.01rem #000 solid}
