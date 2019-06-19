@@ -104,8 +104,9 @@ const getCategorylxl = param => {return axios({method: 'post', url:'vendor/get_c
 const getVendorlistlxl = param => {return axios({method: 'post', url:'zone/p_get_vendor_list', data : qs.stringify(param)})};
 //获取群消息列表
 const getMessagelistlxl = param => {return axios({method: 'post', url:'zone/p_get_message_list', data : qs.stringify(param)})};
+//平台筛选
+const getPlatforms = param => {return axios({method: 'post', url:'saller/get_platforms', data : qs.stringify(param)})};
 export default {
 	login,getTags,getGroupers,getGroups,addTag,getGroupList,openMyGroup,getGroupStat,getGroupInfo,getGroupMembers,getCustomerInfo,getCustomerTags,getCustomerGroup,getUserInfo,getPreGrou,getGrouperParse,getPreGorList,delFn,createCommander,getMapData,setLinePlan,getLinePlanList,getWxConfig,getCommanderSignlist,getInstalledList,getCommanderList,getMapCustomer,getMapVillage,getCommanderInfo,updateCommanderInfo,getVilGrouper,setVillageGrouper,uploadCommanderMedia,commanderSignIn,getCommanderCode,getCommanderBind,whbUserList,chartUrl,setBdVillage,setBdCollection,getCollection,getCitys,getRecommendGroupers,cancelVillageGrouper,getGroupInfolxl,getCategorylxl,getVendorlistlxl,
-	getMessagelistlxl
+	getMessagelistlxl,getPlatforms
 };
-

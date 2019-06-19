@@ -12,8 +12,8 @@
 				</div>
 			</div>
 			<div class="open_btn">
-				<div @click="toQrCode">开通业务</div>
-				<div @click="toOpenHub">开通哈勃</div>
+				<div @click="toQrCode" :class="(prohibit == 1) ? 'gray':'blue'">开通业务</div>
+				<div @click="toOpenHub" :class="(hprohibit == 1) ? 'gray':'blue'">开通哈勃</div>
 				<div style="background: none;width: 2rem;">
 					<p class="p1" v-if="data.is_collection==0" @click="fllow(1)"></p>
 					<p class="p2" v-else @click="fllow(2)"></p>
@@ -23,7 +23,7 @@
 			<div class="info_div"><div>联系方式</div><div>{{data.telphone}}</div></div>
 			<div class="info_div"><div>小区</div><div>{{data.cummunity_name}}</div></div>
 			<div class="info_div" style="margin-bottom: 0.340425rem;"><div>身份</div><div>{{identity}}</div></div>
-			
+
 			<div class="info_div"><div>类型</div><div>{{data.type}}</div></div>
 			<div class="info_div"><div>店名</div><div>{{data.store_name}}</div></div>
 			<div class="info_div" style="margin-bottom: 0.340425rem;"><div>详细地址</div><div>{{data.address}}</div></div>
@@ -38,7 +38,7 @@
 					<img   :src="data.logo"/>
 				</div>
 			</div>
-			
+
 		</div>
 	</div>
 </template>
@@ -53,7 +53,9 @@
 				user_id:window.localStorage.getItem('userMapId'),
 				erp_user_id:window.localStorage.getItem('erp_user_id'),
 				data:{},
-				identity:''
+				identity:'',
+				prohibit: 0,   //是否开通业务（0,1）
+				hprohibit: 0   //是否开通业务（0,1）
 			}
 		},
 		created(){
@@ -61,6 +63,12 @@
 			this.sHeight=document.documentElement.clientHeight
 			document.title = '团长信息'
 			this.getCommanderInfo()
+			//是否开通业务
+			if(this.data.open_id=='' || this.data.open_id==null){
+				this.prohibit = 0
+			}else{
+				this.prohibit = 1
+			}
 		},
 		  mounted(){
 			mui.back = function() {
@@ -68,7 +76,7 @@
 			}
 		},
 		methods:{
-			toEditInfo(){  
+			toEditInfo(){
 				this.$router.push({path:'./editpersonalinfo',query:{id:this.id}});
 			},
 			toxiaoqu(){
@@ -86,7 +94,7 @@
 					this.$router.push({path:'./contion',query:{rank:this.data.user_rank}});
 					localStorage.setItem('connectid',this.data.wxid)
 				}
-				
+
 			},
 			toVisi(){
 				this.$router.push({path:'./visitingrecord',query:{id:this.id}});
@@ -97,7 +105,7 @@
 				}else{
 					Toast("此用户已经开通")
 				}
-				
+
 			},
 			toOpenHub(){
 				if(this.data.open_id=='' || this.data.open_id==null || this.data.union_id=='' || this.data.union_id==null){
@@ -105,7 +113,7 @@
 				}else{
 					this.$router.push({path:'./openhub',query:{id:this.id,union_id:this.data.union_id,open_id:this.data.open_id,wx_name:this.data.wx_name}});
 				}
-				
+
 			},
 			getCommanderInfo(){
 				let _this=this;
@@ -145,7 +153,7 @@
 					$v.isMask=false
 				}).catch(err => {
 				 Toast(err.errmsg)
-				}) 
+				})
 			},
 			fllow(i){
 				this.status=i
@@ -154,7 +162,7 @@
 			toInfo(i){
 				this.$router.push({path:'./personalinfo',query:{id:i}});
 			}
-			
+
 		}
 	}
 </script>
@@ -162,6 +170,8 @@
 <style scoped="scoped">
 	div{ box-sizing: border-box; }
 	.app{background: #F9F9F9;}
+	.gray{background-color: #ccc;}
+	.blue{background:linear-gradient(-10deg,rgba(54,153,255,1) 0%,rgba(33,216,255,1) 100%);}
 	.herder{ height: 2.425531rem; background: #fff; padding: 0 0.510638rem; display: flex;}
 	.herder img{ width: 1.702127rem; height: 1.702127rem; border-radius: 50%; margin-top: 0.340425rem; margin-right: 0.340425rem;}
 	.header_lf{ width: 55%; display: flex; font-size: 0.680851rem; color: #333; font-weight: 600; line-height: 2.425531rem; overflow: hidden;}

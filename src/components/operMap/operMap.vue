@@ -8,12 +8,54 @@
 	<div class="btnList">
 		<div class="wiring" :class="isFlg==true?'btnActive':''" @click.stop="wiring">排线模式</div>
 	</div>
+
+	<div class="btnList-screen">
+				<!-- 平台筛选 -->
+				<div
+					class="btnList-screen-platform"
+					@click="switchPlatform()"
+				>
+					<p :class="[platformNum != false ? 'num' : '']">
+						<!-- 平台 -->
+						<span v-if = "platformtext == ''">平台</span>
+						<span v-else>{{platformtext}}</span>
+					</p>
+					<div
+						class="btnList-screen-platform-list"
+						v-show = "platformNum != false"
+						v-for="(data,list) in platforms_data"
+						:key="list"
+						@click="platformBtn(data.p_platform_id,data.p_name)"
+					>
+						{{data.p_name}}
+					</div>
+				</div>
+				<div
+					class="btnList-screen-platform"
+					@click="switchCustomer()"
+				>
+					<p :class="[customerNum != false ? 'num' : '']">
+						<span v-if = "custypetext == ''">客户</span>
+						<span v-else>{{custypetext}}</span>
+					</p>
+					<div
+						class="btnList-screen-platform-list"
+						v-show = "customerNum != false"
+						v-for="(data,list) in client_data"
+						:key="list"
+						@click="platformsBtn(data.id,data.text)"
+					>
+						{{data.text}}
+					</div>
+				</div>
+			</div>
+
 	<div class="btnList2">
 		<div class="workPlan" @click="toWorkrec">工作计划</div>
 		<div class="finishLine" @click="finishLine" v-if="isFlg">完成排线</div>
 	</div>
     <div id="js-container" class="map" :style="'height:'+sHeight+'px'" @click.stop="isinfo=false,isinfoVis=false"></div>
-    
+
   <div class="visiting-record-model" v-if="isinfoVis">
 		 <div class="visiting-record-model-title">{{infoVis.name}}</div>
 		 <div class="visiting-record-model-address"><div>地址</div> <span>{{infoVis.address}}</span></div>
@@ -33,7 +75,7 @@
 		 <div class="visiting-record-model-btn" @click.stop="toDetil(infoVis.id)">查看详情</div>
 		 <div class="navigation-btn g-pointer" @click.stop="navigation(infoVis.lat,infoVis.lng,infoVis.address)">导航</div>
 	</div>
-	
+
 	<div class="visiting-record-model" v-if="isinfo">
 		 <div class="visiting-record-model-title">{{info.user_name}}<div v-if="info.is_status==1">未捡入</div><div v-if="info.is_status==2">已捡入</div><div v-if="info.is_status==3">已安装</div></div>
 		 <div class="visiting-record-model-address"><div>地址</div> <span>{{info.address}}</span></div>
@@ -46,11 +88,11 @@
 		 <div class="navigation-btn g-pointer" @click.stop="navigation(info.latitude,info.longitude,info.address)">导航</div>
 	</div>
 	<div class="addGroups" @click="toAddGrouper"></div>
-    
+
 	<Tabnav></Tabnav>
-	
-	
-	
+
+
+
   </div>
 </template>
 <script>
@@ -85,11 +127,30 @@
 		infoVis:{},
 		infoVisList:[],
 		formattedAddress:"",
-		timer:null
+		timer:null,
+		platformNum: false,
+		customerNum: false,
+		platforms_data: [],
+		platformid: '',
+		custype: '',
+		platformtext: '',
+		custypetext: '',
+		client_data: [
+			{
+				id : 1,
+				text : "联盟意向客户",
+			},{
+				id : 2,
+				text : "社区派意向客户",
+			},{
+				id : 3,
+				text : "双意向客户",
+			}
+		]
       }
     },
     watch: {
-      
+
     },
 	components:{
 	      Tabnav:Tabnav
@@ -105,7 +166,7 @@
 // 			}else{
 // 				clearInterval($v.timer)
 // 			}
-// 		    
+//
 // 		})
 	},
 	mounted () {
@@ -113,21 +174,30 @@
 		this.sHeight=document.documentElement.clientHeight
 		loadMapApi(()=>{
 		    this.initMap()
-			
+
 		})
 		mui.back = function() {
 			window.history.go(-1);
 		}
+		this.getPlatforms();
 	},
     methods: {
-      // 搜索
-      handleSearch () {
-        if (this.searchKeyVal) {
-          this.placeSearch.search(this.searchKeyVal)
-        }
-      },
+      	// 搜索
+      	handleSearch () {
+        	if (this.searchKeyVal) {
+          	this.placeSearch.search(this.searchKeyVal)
+        	}
+      	},
+	  	//平台筛选按钮
+		switchPlatform () {
+ 			this.platformNum =! this.platformNum;
+		},
+		//用户筛选按钮
+		switchCustomer () {
+			this.customerNum =! this.customerNum;
+		},
 	  toAddGrouper(){
-		this.$router.push({path:'./addgrouper'});  
+		this.$router.push({path:'./addgrouper'});
 	  },
 	  toDetil(i){
 		 this.$router.push({path:'./districtdetails',query:{id:i,address:this.formattedAddress}});
@@ -137,6 +207,50 @@
 		},
 		toInfoPar(i){
 			this.$router.push({path:'./personalinfo',query:{id:i}});
+		},
+		//平台筛选往后台发送id
+		platformBtn(id,text){
+			this.platformid = id
+			this.platformtext = text
+			let $v=this,
+			params = {lng:$v.lng,lat:$v.lat,user_id:$v.userId,platformid:$v.platformid,custype:$v.custype};
+			$v.apiAxios.getMapData(params).then(res => {
+				console.log(res);
+				map.clearMap();
+				$v.village_data=res.result.village_data
+				$v.customer_data=res.result.customer_data
+				$v.setPoints(res.result.customer_data,res.result.village_data)
+
+			}).catch(err => {
+				Toast('暂无')
+			})
+		},
+		//客户筛选往后台发送id
+		platformsBtn(id,text){
+			this.custype = id
+			this.custypetext = text
+			let $v=this,
+			params = {lng:$v.lng,lat:$v.lat,user_id:$v.userId,platformid:$v.platformid,custype:$v.custype};
+			$v.apiAxios.getMapData(params).then(res => {
+				console.log(res);
+				map.clearMap();
+				$v.village_data=res.result.village_data
+				$v.customer_data=res.result.customer_data
+				$v.setPoints(res.result.customer_data,res.result.village_data)
+
+			}).catch(err => {
+				Toast('暂无')
+			})
+		},
+		//筛选获取列表
+		getPlatforms () {
+			let $v=this,
+			params = {lng:$v.lng,lat:$v.lat,user_id:$v.userId};
+			$v.apiAxios.getPlatforms(params).then(res => {
+				$v.platforms_data=res.result
+			}).catch(err => {
+
+			})
 		},
 		navigation(i,s,t){
 			wx.openLocation({
@@ -157,8 +271,8 @@
 				$v.info=res.result.info;
 				$v.infoList=res.result.list;
 			}).catch(err => {
-			 
-			}) 
+
+			})
 		},
 		getMapVillage(vid){
 			let $v=this,
@@ -168,8 +282,8 @@
 				$v.infoVis=res.result.info;
 				// $v.infoVisList=res.result.list;
 			}).catch(err => {
-			 
-			}) 
+
+			})
 		},
 	  getMapData(){
 			let $v=this,
@@ -179,13 +293,14 @@
 				$v.customer_data=res.result.customer_data
 				$v.setPoints(res.result.customer_data,res.result.village_data)
 			}).catch(err => {
-			 
-			})  
+
+			})
 	  },
 	makePoints(i){
+		console.log(i);
 		let $v=this;
 		var marker = new AMap.Marker({
-			icon: new AMap.Icon({            
+			icon: new AMap.Icon({
 				image:i.img_status,
 				size: new AMap.Size(52, 52),  //图标大小
 				imageSize: new AMap.Size(20,20)
@@ -240,11 +355,12 @@
 				}else{
 					$v.getMapVillage(i.id)
 				}
-				
+
 			})
 	  		return marker
 	  },
 	  setPoints(data,data1){
+		  console.log(data)
 		var markers = []
 		data.forEach(item => {
 			var mark = this.makePoints(item)
@@ -259,7 +375,7 @@
 	  },
 	  wiring(){
 		let $v=this;
-		map.clearMap(); 
+		map.clearMap();
 		if($v.isFlg){
 			$v.isFlg=false;
 			$v.setPoints($v.customer_data,$v.village_data)
@@ -267,7 +383,7 @@
 			$v.isFlg=true;
 			$v.setPoints([],$v.village_data)
 		}
-		  
+
 	  },
 		//数组转化规划路线
 		planRoute(){
@@ -304,9 +420,9 @@
 					console.log('获取驾车数据失败：' + result)
 				}
 			});
-			
+
 		},
-			
+
       // 实例化地图
       initMap () {
         // 加载PositionPicker，loadUI的路径参数为模块名中 'ui/' 之后的部分
@@ -329,7 +445,7 @@
 			zoom: 6,
 			resizeEnable: true,
           })
-			
+
 			map.addControl(geolocation)
 			geolocation.getCurrentPosition()
 			AMap.event.addListener(geolocation, 'complete', function (data) {
@@ -340,11 +456,11 @@
 			$this.$store.commit('changelat',data.position.lat)
 			$this.$store.commit('changelng',data.position.lng)
 			$this.getMapData()
-			
+
           }) // 返回定位信息
           AMap.event.addListener(geolocation, 'error', function (data) {
 			  if(AMap.UA.ios){
-				location.reload()  
+				location.reload()
 			  }
             console.log(data)
           }) // 返回定位出错信息
@@ -354,7 +470,7 @@
 		};
 		var auto = new AMap.Autocomplete(autoOptions);
 		// console.log(auto)
-		 
+
 		var placeSearch = new AMap.PlaceSearch({
 			map: map
 		});  //构造地点查询类
@@ -370,7 +486,7 @@
 					// 搜索成功时，result即是对应的匹配数据
 					var marker1 = [];
 					marker1[0] = new AMap.Marker({
-						icon: new AMap.Icon({            
+						icon: new AMap.Icon({
 							image:'https://btj.yundian168.com/biz/baseImg/location.png',
 							size: new AMap.Size(52, 52),  //图标大小
 							imageSize: new AMap.Size(36,36)
@@ -405,7 +521,7 @@
 		jsapi.onload = cb
 	}
 </script>
- 
+
 <style lang="css">
   .m-map{ min-height: 400px; position: relative; }
   .m-map .map{ width: 100%!important; }
@@ -417,7 +533,12 @@
 	#search #tipinput{width:13.6rem;height:1.493333rem;border-radius:0.746666rem;background:rgba(246,246,246,1);outline: none;border: none;margin-top: 0.213333rem;padding-left: 1.493333rem;margin-left: 0.512rem;}
 	.scarchIcon{width: 0.64rem;height: 0.64rem;background: url(../../assets/scarch.png) no-repeat;background-size: 100% 100%;position: absolute;top: 0.66rem;left: 1rem;}
 	.secBtn{width:3.413333rem;height:1.493333rem;background:rgba(255,255,255,1);box-shadow:0px 0.042666rem 0.085333rem 0px rgba(54,153,255,0.2);border-radius:0.746666rem;color: #3699FF;font-size: 0.597333rem;text-align: center;line-height: 1.493333rem;position: absolute;right: 0.4rem;top: 0.2rem;}
-	.btnList{position: absolute;top: 2.2rem;font-size: 0.597333rem;z-index: 1;color: #3699FF;padding: 0 0.512rem;}
+	.btnList{position: absolute;top: 4rem;font-size: 0.597333rem;z-index: 1;color: #3699FF;padding: 0 0.512rem;}
+	.num{background-color: blue;}
+	.btnList-screen{width: 100%;height: 1.877333rem;line-height: 1.877333rem;position: absolute;top: 1.877333rem;z-index: 1;display: flex;justify-content: space-around;}
+	.btnList-screen-platform{width: 40%;height: 1.877333rem;color: #3699FF;text-align: center;background-color: #fff}
+	.btnList-screen-customer{width: 40%;height: 1.877333rem;color: #3699FF;text-align: center;background-color: blue}
+	.btnList-screen-platform-list{background-color: #fff;height: 1.277333rem;line-height:  1.277333rem;font-size: 0.597333rem;border-bottom: 0.01rem #000 solid}
 	.wiring{text-align: center;line-height: 1.49333rem;width:4.266666rem;height:1.493333rem;background:rgba(255,255,255,1);box-shadow:0px 0.128rem 0.128rem 0px rgba(54,153,255,0.2);border-radius:0.746666rem;}
 	.btnActive{background:rgba(54,153,255,1);color: #fff;border-radius:0.213333rem;}
 	.btnList2{position: absolute;bottom: 2.2rem;font-size: 0.597333rem;z-index: 1;color: #3699FF;padding: 0 0.512rem;}
