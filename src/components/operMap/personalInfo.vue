@@ -18,6 +18,7 @@
 					<p class="p1" v-if="data.is_collection==0" @click="fllow(1)"></p>
 					<p class="p2" v-else @click="fllow(2)"></p>
 				</div>
+				<!-- <p style="font-size:12px;" @click="ceshi">测试</p> -->
 			</div>
 			<div class="info_div"><div>联系人</div><div>{{data.user_name}}</div></div>
 			<div class="info_div"><div>联系方式</div><div>{{data.telphone}}</div></div>
@@ -76,6 +77,9 @@
 			}
 		},
 		methods:{
+			ceshi(){
+				this.$router.push({path:'./ceshi',query:{id:this.id}});
+			},
 			toEditInfo(){
 				this.$router.push({path:'./editpersonalinfo',query:{id:this.id}});
 			},

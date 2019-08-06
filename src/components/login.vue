@@ -80,7 +80,7 @@
 				  localStorage.setItem('erp_user_id',res.result.erp_user_id)
 				  localStorage.setItem('userMapId',res.result.user_id)
 				  localStorage.setItem('unionidUser',res.result.unionid)
-				  this.$router.push({path:'./neteng'});
+				  this.$router.push({path:'./operation'});
 				}).catch(err => {
 				  Toast(err.errmsg)
 				})
@@ -110,12 +110,12 @@
 </script>
 
 <style scoped="scoped">
-	body{background: #fff;}
+	body{background: #fff; font-size: .52rem}
 	.zhuce{margin-right: 0.512rem;margin-top: 0.512rem;color: #0074D9;margin-bottom: 0.512rem;}
 	.boxBg{background: url(../assets/bgH5.png) no-repeat;background-size: 100% 100%;width: 100%;height: 100%;overflow: hidden;}
 	.login{width:12.8rem;height:12.418666rem;background:rgba(45,59,122,0.8);border-radius:0.853333rem;overflow: hidden;margin: 0 auto;margin-top: 45%;}
 	.userName{width: 10.666666rem;margin: 0 auto;margin-bottom: 0.426666rem;position: relative;}
-	input{width:8.96rem;height: 1.706666rem;border-radius: 0.213333rem;border: none;outline: none;padding-left: 1.706666rem;}
+	input{width:8.96rem;height: 1.706666rem;border-radius: 0.213333rem;border: none;outline: none;padding-left: 1.706666rem; font-size: .52rem;}
 	.btnsLoginz{width: 10.666666rem;height: 1.706666rem;line-height: 1.706666rem;text-align: center;background: #3699FF;color: #fff;font-size: 0.682666rem;margin: 0 auto;border-radius: 0.213333rem; }
 	.rememberPassword{width: 0.8rem;height: 0.8rem;float: left;}
 	.remember{padding-left: 0.9rem;font-size: 0.597333rem;line-height: 0.853333rem;height: 1.066666rem;margin-top: 0.426666rem;margin-right: 0.6rem;}

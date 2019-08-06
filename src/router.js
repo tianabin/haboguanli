@@ -7,21 +7,21 @@ export default new Router({
   mode: "hash",
   base: process.env.BASE_URL,
   routes: [
-    {
-      path: "/",
-      name: "login",
-			component: (resolve) => require(['./components/login.vue'],resolve)
-    },
+		{
+		path: "/",
+		name: "login",
+				component: (resolve) => require(['./components/login.vue'],resolve)
+		},
 		{
 		  path: "/operation",
 		  name: "operation",
 			component: (resolve) => require(['./components/operMap/operation.vue'],resolve)
 		},
-    {
-      path: "/neteng",
-      name: "neteng",
-			component: (resolve) => require(['./components/netEng/netEng.vue'],resolve)
-    },
+		{
+		path: "/neteng",
+		name: "neteng",
+				component: (resolve) => require(['./components/netEng/netEng.vue'],resolve)
+		},
 		{
 		  path: "/maillist",
 		  name: "maillist",
@@ -80,7 +80,7 @@ export default new Router({
 		{
 		  path: "/personalinfo",
 		  name: "personalinfo",
-			component: (resolve) => require(['./components/operMap/personalInfo.vue'],resolve)
+			component: (resolve) => require(['./components/operMap/newpersonalInfo2.vue'],resolve)
 		},
 		{
 		  path: "/editpersonalinfo",
@@ -125,13 +125,27 @@ export default new Router({
 		{
 			path: "/addgrouper",
 			name: "addgrouper",
-			component: (resolve) => require(['./components/operMap/addGrouper.vue'],resolve)
+			component: (resolve) => require(['./components/operMap/newAddGrouper.vue'],resolve)
 		},
 		{
 			path: "/gslist",
 			name: "gslist",
 			component: (resolve) => require(['./components/comGSpace/gslist.vue'],resolve)
+		},
+		{
+			path: "/signin",
+			name: "signin",
+			component: (resolve) => require(['./components/operMap/signin.vue'],resolve)
+		},
+		{
+			path: "/evaluate",
+			name: "signin",
+			component: (resolve) => require(['./components/mine/evaluate.vue'],resolve)
 		}
+		// {
+		// 	path: "/ceshi",
+		// 	component: (resolve) => require(['./components/operMap/newpersonalInfo2.vue'],resolve)
+		// }
 		
   ]
 });

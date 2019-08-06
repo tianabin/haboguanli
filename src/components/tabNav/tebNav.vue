@@ -11,7 +11,28 @@ export default {
   name: "tebNav",
   data() {
     return {
-  		tabList:[{title:'人脉雷达',check:false,url:"neteng"},{title:'通讯录',check:false,url:"maillist"},{title:'业务中心',check:false,url:"operation"},{title:'我的',check:false,url:"mine"},]
+  		tabList:[
+			  {
+				 title:'业务中心',
+				 check:false,
+				 url:"operation"
+			  },
+			  {
+				  title:'人脉雷达',
+				  check:false,
+				  url:"neteng"
+			  },
+			  {
+				  title:'通讯录',
+				  check:false,
+				  url:"maillist"
+			  },
+			  {
+				title:'我的',
+				check:false,
+				url:"mine"
+			  }
+			]
     }
   },
   mounted(){

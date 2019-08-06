@@ -26,7 +26,7 @@
 					<img :src="logo"/>
 				</div>
 			</div>
-			
+			<!-- <p>{{this.params}}</p> -->
 			<div class="submit_btn" @click="submitInfo()">
 				提交
 			</div>
@@ -49,6 +49,7 @@
 				logo:'',
 				identity:'',
 				popupVisible:false,
+				params:'',
 //				slots:[{value:'团长'},{value:'店铺'},{value:'经销商'},{value:'品牌方'}],
 				slots:[{values:['团长','店铺','经销商','品牌方']}]
 			}
@@ -124,7 +125,11 @@
 			},
 			getConfig(){
 				let $v=this;
-			  	let params = {url:window.location.href.split('#')[0]};
+				  let params = {url:window.location.href.split('#')[0]};
+				//   this.params = params
+				  console.log('+++++++++++++++')
+					console.log('签名',params)
+					console.log('+++++++++++++++')
 			  	$v.apiAxios.getWxConfig(params).then(res => {
 			  		wx.config({
 			  			debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。

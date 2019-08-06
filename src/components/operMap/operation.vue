@@ -16,7 +16,44 @@ export default {
   data() {
     return {
 		sHeight:"",
-		boxList:[{color:'#3C65FF',name:'作战地图',imgurl:'https://btj.yundian168.com/biz/baseImg/map.png',url:"opermap"},{color:'#FF6243',name:'工作计划',imgurl:'https://btj.yundian168.com/biz/baseImg/work1.png',url:"workplan"},{color:'#FFB71C',name:'工作记录',imgurl:'https://btj.yundian168.com/biz/baseImg/work2.png',url:"workrecord"},{color:'#3cd7ff',name:'数据图表',imgurl:'https://btj.yundian168.com/biz/baseImg/tubiao.png',url:"chart"},{color:'#ff711c',name:'我的客户',imgurl:'https://btj.yundian168.com/biz/baseImg/kehu.png',url:"mycollection"},{color:'#FF9B43',name:'群空间',imgurl:'https://btj.yundian168.com/biz/baseImg/groupspace.png',url:"gslist"},],
+		boxList:[
+				{
+					color:'#3C65FF',
+					name:'作战地图',
+					imgurl:'https://btj.yundian168.com/biz/baseImg/map.png',
+					url:"opermap"
+				},
+				{
+					color:'#FF6243',
+					name:'工作计划',
+					imgurl:'https://btj.yundian168.com/biz/baseImg/work1.png',
+					url:"workplan"
+				},
+				{
+					color:'#FFB71C',
+					name:'工作记录',
+					imgurl:'https://btj.yundian168.com/biz/baseImg/work2.png',
+					url:"workrecord"
+				},
+				{
+					color:'#3cd7ff',
+					name:'数据图表',
+					imgurl:'https://btj.yundian168.com/biz/baseImg/tubiao.png',
+					url:"chart"
+				},
+				{
+					color:'#ff711c',
+					name:'我的客户',
+					imgurl:'https://btj.yundian168.com/biz/baseImg/kehu.png',
+					url:"mycollection"
+				},
+				{
+					color:'#FF9B43',
+					name:'群空间',
+					imgurl:'https://btj.yundian168.com/biz/baseImg/groupspace.png',
+					url:"gslist"
+				}
+				],
     }
   },
   components:{
@@ -42,6 +79,7 @@ export default {
   },
   methods:{
   	location(i){
+		  console.log(i)
 		this.$router.push({path:i});
 	}
   }

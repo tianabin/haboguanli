@@ -5,18 +5,18 @@
 		<input id="tipinput" class="seInput"/>
 		<!-- <div class="secBtn">搜索</div> -->
 	</div>
-	<div class="btnList">
+	<!-- <div class="btnList">
 		<div class="wiring" :class="isFlg==true?'btnActive':''" @click.stop="wiring">排线模式</div>
-	</div>
+	</div> -->
 
-	<div class="btnList-screen">
-				<!-- 平台筛选 -->
+	<!-- <div class="btnList-screen">
+				平台筛选 
 				<div
 					class="btnList-screen-platform"
 					@click="switchPlatform()"
 				>
 					<p :class="[platformNum != false ? 'num' : '']">
-						<!-- 平台 -->
+						 平台 
 						<span v-if = "platformtext == ''">平台</span>
 						<span v-else>{{platformtext}}</span>
 					</p>
@@ -29,8 +29,8 @@
 					>
 						{{data.p_name}}
 					</div>
-				</div>
-				<div
+				</div>-->
+				<!-- <div
 					class="btnList-screen-platform"
 					@click="switchCustomer()"
 				>
@@ -47,11 +47,11 @@
 					>
 						{{data.text}}
 					</div>
-				</div>
-			</div>
+				</div> 
+			</div> -->
 
 	<div class="btnList2">
-		<div class="workPlan" @click="toWorkrec">工作计划</div>
+		<!-- <div class="workPlan" @click="toWorkrec">工作计划</div> -->
 		<div class="finishLine" @click="finishLine" v-if="isFlg">完成排线</div>
 	</div>
     <div id="js-container" class="map" :style="'height:'+sHeight+'px'" @click.stop="isinfo=false,isinfoVis=false"></div>
@@ -75,7 +75,6 @@
 		 <div class="visiting-record-model-btn" @click.stop="toDetil(infoVis.id)">查看详情</div>
 		 <div class="navigation-btn g-pointer" @click.stop="navigation(infoVis.lat,infoVis.lng,infoVis.address)">导航</div>
 	</div>
-
 	<div class="visiting-record-model" v-if="isinfo">
 		 <div class="visiting-record-model-title">{{info.user_name}}<div v-if="info.is_status==1">未捡入</div><div v-if="info.is_status==2">已捡入</div><div v-if="info.is_status==3">已安装</div></div>
 		 <div class="visiting-record-model-address"><div>地址</div> <span>{{info.address}}</span></div>
@@ -88,11 +87,7 @@
 		 <div class="navigation-btn g-pointer" @click.stop="navigation(info.latitude,info.longitude,info.address)">导航</div>
 	</div>
 	<div class="addGroups" @click="toAddGrouper"></div>
-
 	<Tabnav></Tabnav>
-
-
-
   </div>
 </template>
 <script>
@@ -156,8 +151,6 @@
 	      Tabnav:Tabnav
 	},
 	created(){
-		let $v=this;
-		this.$store.commit('change',2)
 // 		loadMapApi(()=>{
 // 			if($v.lat==''){
 // 				$v.timer=setTimeout(function(){

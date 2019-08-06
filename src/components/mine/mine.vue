@@ -9,6 +9,7 @@
 				<div class="phone">{{info.user_name}}</div>
 			</div>
 			<div class="fr headImg"><img src="" alt=""></div>
+			<p class="lingdao" @click="ling">领导评价</p>
 		</div>
 		<div class="tebIcon">
 			<div>我的关键词配置</div>
@@ -65,6 +66,9 @@ export default {
 	} 
   },
   methods:{
+	  ling(){
+		  this.$router.push('/evaluate')
+	  },
   	getUserInfo(){
 		let $v=this,
 		params = {user_id:$v.userid,};
@@ -133,4 +137,8 @@ border-radius:0.426666rem;margin-top: 0.14rem;}
 	.btnSub{margin: 0 auto;margin-top: 1rem;width:11.093333rem;height:1.493333rem;text-align: center;line-height: 1.493333rem;font-size: 0.682666rem;background: #3699FF;border-radius: 0.213333rem;padding: 0 0.512rem;color: #fff;}
 	.maskBg{position: fixed;width: 100%;height: 100%;top: 0;background: rgba(0,0,0,0.5);}
 	.clickMask{width: 100%;height: 21rem;}
+	.lingdao{
+		float: right;
+		font-size: .78rem;
+	}
 </style>
